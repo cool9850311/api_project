@@ -9,6 +9,23 @@ const usersRouter = require('./routes/users');
 const crudRouter = require('./routes/crud');
 const app = express();
 
+const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+const options = {
+  swaggerDefinition: {
+    // 這邊會是你的api文件網頁描述
+    info: {
+      title: 'ec_web_demo API',
+      version: '1.0.0',
+      description: 'Generate ec_web_demo API document with swagger',
+    },
+  },
+  // 這邊會是你想要產生的api文件檔案，我是直接讓swagger去列出所有controllers
+  apis: ['./routes/crud.js'],
+};
+const specs = swaggerJsdoc(options);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');

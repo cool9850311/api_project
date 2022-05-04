@@ -18,6 +18,18 @@
     "pug": "2.0.0-beta11"
   },
   "devDependencies": {
-    "@types/node": "^17.0.31"
-  }
+    "@types/node": "^17.0.31",
+    "eslint": "^8.14.0",
+    "eslint-config-google": "^0.14.0",
+    "swagger-jsdoc": "^6.2.1",
+    "swagger-ui-express": "^4.3.0"
+  },
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@bitbucket.gpms365.net:7999/~harryshih/api_project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
