@@ -7,6 +7,8 @@ const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const crudRouter = require('./routes/crud');
+const restockRouter = require('./routes/restock');
+const sellRouter = require('./routes/sell');
 const app = express();
 
 const swaggerJsdoc = require('swagger-jsdoc');
@@ -38,7 +40,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/url', crudRouter);
+app.use('/crud', crudRouter);
+app.use('/restock', restockRouter);
+app.use('/sell', sellRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

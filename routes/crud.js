@@ -6,12 +6,20 @@ const router = express.Router();
 router.get('/', function(req, res, next) {
   let queryString = knex.select().from('product');
   if (req.query.id != null) {
+    if (isNaN(req.query.id)||req.query.id<0) {
+      res.json({success: false, message: 'id invalid'});
+      return;
+    }
     queryString = queryString.where('id', req.query.id);
   }
   if (req.query.product_name != null) {
     queryString = queryString.where('product_name', req.query.product_name);
   }
   if (req.query.price != null) {
+    if (isNaN(req.query.price)||req.query.price<0) {
+      res.json({success: false, message: 'price invalid'});
+      return;
+    }
     queryString = queryString.where('price', req.query.price);
   }
   if (req.query.remark != null) {
@@ -22,14 +30,36 @@ router.get('/', function(req, res, next) {
   });
 });
 router.post('/', function(req, res) {
-  console.log(req.body);
+  // console.log(req.body);
   if (req.body.method == 'create') {
     const productName = req.body.product_name;
     const price = req.body.price;
-    const soldNum = req.body.sold_num;
-    const stockNum = req.body.stock_num;
+    let soldNum = req.body.sold_num;
+    let stockNum = req.body.stock_num;
     const timeStamp = new Date();
     const remark = req.body.remark;
+    if (productName==null) {
+      res.json({success: false, message: 'product_name invalid'});
+      return;
+    }
+    if (price==null||isNaN(price)||price<0) {
+      res.json({success: false, message: 'price invalid'});
+      return;
+    }
+    if (soldNum==null) {
+      soldNum = 0;
+    }
+    if (stockNum==null) {
+      stockNum = 0;
+    }
+    if (isNaN(soldNum)||soldNum<0) {
+      res.json({success: false, message: 'sold_num invalid'});
+      return;
+    }
+    if (isNaN(stockNum)||stockNum<0) {
+      res.json({success: false, message: 'stock_num invalid'});
+      return;
+    }
     knex
         .insert({
           product_name: productName,
@@ -46,7 +76,7 @@ router.post('/', function(req, res) {
     return;
   }
   if (req.body.method == 'update') {
-    const queryString = knex('product');
+    let queryString = knex('product');
     const productName = req.body.product_name;
     const price = req.body.price;
     const soldNum = req.body.sold_num;
@@ -62,17 +92,42 @@ router.post('/', function(req, res) {
       queryString = queryString.where('product_name', productName);
     }
     if (price != null) {
+      if (isNaN(price)||price<0) {
+        res.json({success: false, message: 'price invalid'});
+        return;
+      }
       queryString = queryString.where('price', price);
     }
     if (soldNum != null) {
+      if (isNaN(soldNum)||soldNum<0) {
+        res.json({success: false, message: 'sold_num invalid'});
+        return;
+      }
       queryString = queryString.where('sold_num', soldNum);
     }
     if (stockNum != null) {
+      if (isNaN(stockNum)||stockNum<0) {
+        res.json({success: false, message: 'stock_num invalid'});
+        return;
+      }
       queryString = queryString.where('stock_num', stockNum);
     }
     if (remark != null) {
       queryString = queryString.where('remark', remark);
     }
+    if (priceUpdate!=null&&isNaN(priceUpdate)||priceUpdate<0) {
+      res.json({success: false, message: 'price_update invalid'});
+      return;
+    }
+    if (soldNumUpdate!=null&&isNaN(soldNumUpdate)||soldNumUpdate<0) {
+      res.json({success: false, message: 'sold_num_update invalid'});
+      return;
+    }
+    if (stockNumUpdate!=null&&isNaN(stockNumUpdate)||stockNumUpdate<0) {
+      res.json({success: false, message: 'stock_num_update invalid'});
+      return;
+    }
+
     queryString = queryString.update('product_name', productNameUpdate);
     queryString = queryString.update('price', priceUpdate);
     queryString = queryString.update('sold_num', soldNumUpdate);
@@ -85,7 +140,7 @@ router.post('/', function(req, res) {
     return;
   }
   if (req.body.method == 'delete') {
-    const queryString = knex('product');
+    let queryString = knex('product');
     const productName = req.body.product_name;
     const price = req.body.price;
     const soldNum = req.body.sold_num;
@@ -95,12 +150,24 @@ router.post('/', function(req, res) {
       queryString = queryString.where('product_name', productName);
     }
     if (price != null) {
+      if (isNaN(price)||price<0) {
+        res.json({success: false, message: 'price invalid'});
+        return;
+      }
       queryString = queryString.where('price', price);
     }
     if (soldNum != null) {
+      if (isNaN(soldNum)||soldNum<0) {
+        res.json({success: false, message: 'sold_num invalid'});
+        return;
+      }
       queryString = queryString.where('sold_num', soldNum);
     }
     if (stockNum != null) {
+      if (isNaN(stockNum)||stockNum<0) {
+        res.json({success: false, message: 'stock_num invalid'});
+        return;
+      }
       queryString = queryString.where('stock_num', stockNum);
     }
     if (remark != null) {
