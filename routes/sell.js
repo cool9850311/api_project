@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const express = require('express');
 const knex = require('knex')(require('./knexfile'));
 // eslint-disable-next-line new-cap
@@ -10,6 +11,10 @@ router.post('/', function(req, res) {
   // console.log(Date.now());
 
   knex.transaction(function(trx) {
+    if (userID==null||isNaN(userID)||userID<0) {
+      res.json({success: false, message: 'user_id invalid'});
+      return;
+    }
     knex
         .transacting(trx)
         .insert({
@@ -29,6 +34,14 @@ router.post('/', function(req, res) {
       tempObject.product_id = order.buy_product[p].product_id;
       tempObject.amount = order.buy_product[p].amount;
       tempObject.remark = order.buy_product[p].remark;
+      if (tempObject.product_id==null||isNaN(tempObject.product_id)||tempObject.product_id<0) {
+        res.json({success: false, message: 'json data buy_product.product_id invalid'});
+        return;
+      }
+      if (tempObject.amount==null||isNaN(tempObject.amount)||tempObject.amount<0) {
+        res.json({success: false, message: 'json data buy_product.amount invalid'});
+        return;
+      }
       subOrderTableObject.push(tempObject);
     }
     // end build json
