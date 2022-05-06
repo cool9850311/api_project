@@ -3,13 +3,8 @@
  * @returns { Promise<void> }
  */
  exports.up = function(knex, Promise) {
-  return knex.schema.createTable('restock_table', (table) => {
-    table.increments();
-    table.integer('user_id');
-    table.integer('product_id');
-    table.integer('amount');
-    table.timestamp('create_at').defaultTo(knex.fn.now());
-    table.string('remark');
+  return knex.schema.alterTable('sub_order_table', (table) => {
+    table.string('status');
   });
 };
 
@@ -18,5 +13,7 @@
  * @returns { Promise<void> }
  */
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTable('restock_table');
+  return knex.schema.alterTable('sub_order_table', (table) => {
+    table.dropColumn('status');
+  });
 };

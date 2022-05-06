@@ -5,7 +5,11 @@ const knex = require('knex')(require('./knexfile'));
 const router = express.Router();
 
 router.post('/', function(req, res) {
-  
+  const orderID = req.body.order_id;
+  const updateOrder = JSON.parse(req.body.order);
+  knex.transaction(function(trx) {
+    
+  });
 });
 
 module.exports = router;
