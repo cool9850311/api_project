@@ -9,12 +9,11 @@ router.post('/', function(req, res) {
   const order = JSON.parse(req.body.order);
   const orderID = 'order'+Date.now();
   // console.log(Date.now());
-
+  if (userID==null||isNaN(userID)||userID<0) {
+    res.json({success: false, message: 'user_id invalid'});
+    return;
+  }
   knex.transaction(function(trx) {
-    if (userID==null||isNaN(userID)||userID<0) {
-      res.json({success: false, message: 'user_id invalid'});
-      return;
-    }
     knex
         .transacting(trx)
         .insert({
