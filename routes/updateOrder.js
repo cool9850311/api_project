@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post('/', function(req, res) {
   const orderID = req.body.order_id;
-  const updateOrder = JSON.parse(req.body.update_order);
+  const updateOrder = req.body.buy_product;
   try {
     knex.transaction(async function(trx) {
       let queryString = knex('sub_order_table')
@@ -16,12 +16,12 @@ router.post('/', function(req, res) {
       await queryString;
       const subOrderTableObject = [];
       // eslint-disable-next-line guard-for-in
-      for (p in updateOrder.buy_product) {
+      for (p in updateOrder) {
         const tempObject = {};
         tempObject.order_id = orderID;
-        tempObject.product_id = updateOrder.buy_product[p].product_id;
-        tempObject.amount = updateOrder.buy_product[p].amount;
-        tempObject.remark = updateOrder.buy_product[p].remark;
+        tempObject.product_id = updateOrder[p].product_id;
+        tempObject.amount = updateOrder[p].amount;
+        tempObject.remark = updateOrder[p].remark;
         if (tempObject.product_id==null||isNaN(tempObject.product_id)||tempObject.product_id<0) {
           res.json({success: false, message: 'json data buy_product.product_id invalid'});
           return;

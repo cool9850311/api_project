@@ -28,6 +28,7 @@ describe('Sell api', () => {
   describe('sell a product ', ()=>{
     it('it should sell a product', (done) => {
       let tempObject = {
+        'user_id': 123,
         'buy_product': [
           {
             'product_id': 1,
@@ -44,11 +45,8 @@ describe('Sell api', () => {
       tempObject = JSON.stringify(tempObject);
       chai.request(server)
           .post('/sell')
-          .set('content-type', 'application/x-www-form-urlencoded')
-          .send({
-            user_id: '123',
-            order: tempObject,
-          })
+          .set('content-type', 'application/json')
+          .send(tempObject)
           .end((err, res) => {
             if (err!=null) {
               console.log(err);
@@ -62,6 +60,7 @@ describe('Sell api', () => {
   describe('update order ', ()=>{
     it('it should update a order', (done) => {
       let tempObject = {
+        'order_id': 'order1651742488971',
         'buy_product': [
           {
             'product_id': 1,
@@ -78,11 +77,8 @@ describe('Sell api', () => {
       tempObject = JSON.stringify(tempObject);
       chai.request(server)
           .post('/updateOrder')
-          .set('content-type', 'application/x-www-form-urlencoded')
-          .send({
-            order_id: 'order1651742488971',
-            update_order: tempObject,
-          })
+          .set('content-type', 'application/json')
+          .send(tempObject)
           .end((err, res) => {
             if (err!=null) {
               console.log(err);
