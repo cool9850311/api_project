@@ -38,6 +38,12 @@ router.post('/', function(req, res) {
           .insert(subOrderTableObject)
           .into('sub_order_table');
       await queryString;
+      queryString =
+          knex('order_table')
+              .transacting(trx)
+              .where('order_id', orderID)
+              .update('edit_at', new Date());
+      await queryString;
       res.json({success: true, message: 'ok'});
     });
   } catch (error) {
