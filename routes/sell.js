@@ -24,7 +24,6 @@ router.post('/', function(req, res) {
         .then((result) => {
           console.log(result);
         });
-    // build json
     const subOrderTableObject = [];
     // eslint-disable-next-line guard-for-in
     for (p in order.buy_product) {
