@@ -4,18 +4,19 @@ const knex = require('knex')(require('./knexfile'));
 // eslint-disable-next-line new-cap
 const router = express.Router();
 
-router.post('/', function(req, res) {
+router.post('/', async function(req, res) {
   const orderID = req.body.order_id;
-  knex.select('sub_order_table.id', 'order_id', 'product_id', 'price', 'amount', 'sub_order_table.remark')
+  const queryString = knex.select('sub_order_table.id', 'order_id', 'product_id', 'price', 'amount', 'sub_order_table.remark')
       .from('sub_order_table')
+      .where(function() {
+        this.where('status', '<>', 'deleted').orWhereNull('status');
+      })
       .where('order_id', orderID)
-      .whereNot('status', 'deleted')
       .leftJoin('product', function() {
         this.on('product.id', '=', 'sub_order_table.product_id');
-      })
-      .then((result) => {
-        res.json(result);
       });
+  const result = await queryString;
+  res.json(result);
 });
 
 module.exports = router;
