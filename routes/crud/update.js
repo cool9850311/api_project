@@ -56,6 +56,11 @@ router.post('/', function(req, res) {
     res.json({success: false, message: 'stock_num_update invalid'});
     return;
   }
+  // eslint-disable-next-line max-len
+  if (priceUpdate==null&&productNameUpdate==null&&soldNumUpdate==null&&stockNumUpdate==null&&remarkUpdate==null) {
+    res.json({success: false, message: 'missing any update value'});
+    return;
+  }
 
   queryString = queryString.update('product_name', productNameUpdate);
   queryString = queryString.update('price', priceUpdate);
