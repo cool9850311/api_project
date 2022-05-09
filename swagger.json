@@ -1,0 +1,630 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a simple api project",
+    "version": "1.0.0",
+    "title": "api_project",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "apiteam@swagger.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "petstore.swagger.io",
+  "basePath": "/v2",
+  "tags": [
+    {
+      "name": "crud",
+      "description": "basic CRUD API"
+    },
+    {
+      "name": "sell",
+      "description": "sell and restock API",
+      "externalDocs": {
+        "description": "Find out more about our store",
+        "url": "http://swagger.io"
+      }
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/read": {
+      "get": {
+        "tags": [
+          "crud"
+        ],
+        "summary": "read product",
+        "description": "",
+        "operationId": "",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "product_name",
+            "in": "query",
+            "description": "The user name for login",
+            "type": "string"
+          },
+          {
+            "name": "price",
+            "in": "query",
+            "description": "The password for login in clear text",
+            "type": "integer"
+          },
+          {
+            "name": "remark",
+            "in": "query",
+            "description": "The password for login in clear text",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Product"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/create": {
+      "post": {
+        "tags": [
+          "crud"
+        ],
+        "summary": "create product",
+        "description": "",
+        "operationId": "",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "product_name",
+            "in": "formData",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "price",
+            "in": "formData",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "sold_num",
+            "in": "formData",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "stock_num",
+            "in": "formData",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "remark",
+            "in": "formData",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Response"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/update": {
+      "post": {
+        "tags": [
+          "crud"
+        ],
+        "summary": "update product",
+        "description": "need at least one param for update",
+        "operationId": "",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "product_name",
+            "in": "formData",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "price",
+            "in": "formData",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "sold_num",
+            "in": "formData",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "stock_num",
+            "in": "formData",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "remark",
+            "in": "formData",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "product_name_update",
+            "in": "formData",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "price_update",
+            "in": "formData",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "sold_num_update",
+            "in": "formData",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "stock_num_update",
+            "in": "formData",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "remark_update",
+            "in": "formData",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Response"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/delete": {
+      "post": {
+        "tags": [
+          "crud"
+        ],
+        "summary": "delete product",
+        "description": "need at least one param",
+        "operationId": "",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "product_name",
+            "in": "formData",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "price",
+            "in": "formData",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "sold_num",
+            "in": "formData",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "stock_num",
+            "in": "formData",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "remark",
+            "in": "formData",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Response"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/restock": {
+      "post": {
+        "tags": [
+          "sell"
+        ],
+        "summary": "restock product",
+        "description": "",
+        "operationId": "",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "formData",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "product_id",
+            "in": "formData",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "amount",
+            "in": "formData",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "remark",
+            "in": "formData",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Response"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/sell": {
+      "post": {
+        "tags": [
+          "sell"
+        ],
+        "summary": "make an order",
+        "description": "",
+        "operationId": "",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "sell object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/sell"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Response"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/updateOrder": {
+      "post": {
+        "tags": [
+          "sell"
+        ],
+        "summary": "update an order",
+        "description": "",
+        "operationId": "",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "update object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateOrder"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Response"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/searchOrder": {
+      "post": {
+        "tags": [
+          "sell"
+        ],
+        "summary": "search an order",
+        "description": "",
+        "operationId": "",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "formData",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Order"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "petstore_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "http://petstore.swagger.io/oauth/dialog",
+      "flow": "implicit",
+      "scopes": {
+        "write:pets": "modify pets in your account",
+        "read:pets": "read your pets"
+      }
+    },
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "Response": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "sell": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "buy_product": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "product_id": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "amount": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "remark": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "updateOrder": {
+      "type": "object",
+      "properties": {
+        "order_id": {
+          "type": "string"
+        },
+        "buy_product": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "product_id": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "amount": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "remark": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "Product": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "product_name": {
+          "type": "string"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sold_num": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "stock_num": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "last_edit_time": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "remark": {
+          "type": "string"
+        }
+      }
+    },
+    "Order": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "order_id": {
+            "type": "string"
+          },
+          "product_id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "price": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "amount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "remark": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}
