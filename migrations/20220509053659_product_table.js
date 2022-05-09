@@ -5,7 +5,7 @@
 exports.up = function(knex) {
   return knex.schema.createTable('product', (table) => {
     table.increments();
-    table.string('product_name').unique().notNullable();
+    table.string('product_name').notNullable();
     table.double('price').notNullable();
     table.integer('sold_num').notNullable();
     table.integer('stock_num').notNullable();
