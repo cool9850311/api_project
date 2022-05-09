@@ -9,11 +9,11 @@ router.post('/', function(req, res) {
   const order = req.body.buy_product;
   const orderID = 'order'+Date.now();
   // console.log(Date.now());
-  if (userID==null||isNaN(userID)||userID<0) {
+  if (userID == null || isNaN(userID) || userID < 0) {
     res.json({success: false, message: 'user_id invalid'});
     return;
   }
-  if (order==null||order.length==0) {
+  if (order == null || order.length == 0) {
     res.json({success: false, message: 'missing buy product'});
     return;
   }
@@ -25,11 +25,11 @@ router.post('/', function(req, res) {
     tempObject.product_id = order[p].product_id;
     tempObject.amount = order[p].amount;
     tempObject.remark = order[p].remark;
-    if (tempObject.product_id==null||isNaN(tempObject.product_id)||tempObject.product_id<0) {
+    if (tempObject.product_id == null || isNaN(tempObject.product_id) || tempObject.product_id < 0) {
       res.json({success: false, message: 'json data buy_product.product_id invalid'});
       return;
     }
-    if (tempObject.amount==null||isNaN(tempObject.amount)||tempObject.amount<0) {
+    if (tempObject.amount == null || isNaN(tempObject.amount) || tempObject.amount < 0) {
       res.json({success: false, message: 'json data buy_product.amount invalid'});
       return;
     }

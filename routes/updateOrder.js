@@ -7,11 +7,11 @@ const router = express.Router();
 router.post('/', function(req, res) {
   const orderID = req.body.order_id;
   const updateOrder = req.body.buy_product;
-  if (orderID==null) {
+  if (orderID == null) {
     res.json({success: false, message: 'missing order_id'});
     return;
   }
-  if (updateOrder==null||updateOrder.length==0) {
+  if (updateOrder == null || updateOrder.length == 0) {
     res.json({success: false, message: 'missing buy product'});
     return;
   }
@@ -23,11 +23,11 @@ router.post('/', function(req, res) {
     tempObject.product_id = updateOrder[p].product_id;
     tempObject.amount = updateOrder[p].amount;
     tempObject.remark = updateOrder[p].remark;
-    if (tempObject.product_id==null||isNaN(tempObject.product_id)||tempObject.product_id<0) {
+    if (tempObject.product_id == null || isNaN(tempObject.product_id) || tempObject.product_id < 0) {
       res.json({success: false, message: 'json data buy_product.product_id invalid'});
       return;
     }
-    if (tempObject.amount==null||isNaN(tempObject.amount)||tempObject.amount<0) {
+    if (tempObject.amount == null || isNaN(tempObject.amount) || tempObject.amount < 0) {
       res.json({success: false, message: 'json data buy_product.amount invalid'});
       return;
     }

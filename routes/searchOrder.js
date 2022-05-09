@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post('/', async function(req, res) {
   const orderID = req.body.order_id;
-  if (orderID==null) {
+  if (orderID == null) {
     res.json({success: false, message: 'missing order_id'});
     return;
   }

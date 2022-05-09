@@ -8,15 +8,15 @@ router.post('/', function(req, res) {
   const productID = req.body.product_id;
   const amount = req.body.amount;
   const remark = req.body.remark;
-  if (userID==null||isNaN(userID)) {
+  if (userID == null || isNaN(userID)) {
     res.json({success: false, message: 'user_id invalid'});
     return;
   }
-  if (productID==null||isNaN(productID)) {
+  if (productID == null || isNaN(productID)) {
     res.json({success: false, message: 'product_id invalid'});
     return;
   }
-  if (amount==null||isNaN(amount)||amount<0) {
+  if (amount == null || isNaN(amount) || amount < 0) {
     res.json({success: false, message: 'amount invalid'});
     return;
   }
