@@ -5,8 +5,8 @@
 exports.up = function(knex) {
   return knex.schema.createTable('order_table', (table) => {
     table.increments();
-    table.string('order_id');
-    table.string('user_id');
+    table.string('order_id').notNullable();
+    table.string('user_id').notNullable();
     table.timestamp('create_at').defaultTo(knex.fn.now());
     table.timestamp('edit_at');
   });

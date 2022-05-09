@@ -41,7 +41,11 @@ router.post('/', function(req, res) {
         .from('product')
         .where('id', productID)
         .then( (result)=>{
-          stockNum = result[0].stock_num;
+          try {
+            stockNum = result[0].stock_num;
+          } catch (error) {
+            console.log(error);
+          }
           // console.log(stockNum);
           knex('product')
               .transacting(trx)

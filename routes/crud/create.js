@@ -8,7 +8,7 @@ router.post('/', function(req, res) {
   const price = req.body.price;
   let soldNum = req.body.sold_num;
   let stockNum = req.body.stock_num;
-  const timeStamp = new Date();
+  // const timeStamp = new Date();
   const remark = req.body.remark;
   if (productName == null) {
     res.json({success: false, message: 'product_name invalid'});
@@ -38,7 +38,6 @@ router.post('/', function(req, res) {
         price: price,
         sold_num: soldNum,
         stock_num: stockNum,
-        last_edit_time: timeStamp,
         remark: remark,
       })
       .into('product')
