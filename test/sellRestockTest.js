@@ -46,7 +46,7 @@ describe('Sell api', () => {
     });
   });
   describe('sell a product ', ()=>{
-    it('it should sell a product', (done) => {
+    it('it should sell a product and return success', (done) => {
       let tempObject = {
         'user_id': 123,
         'buy_product': [
@@ -73,6 +73,37 @@ describe('Sell api', () => {
             }
             res.should.have.status(200);
             res.body.success.should.equal(true);
+            done();
+          });
+    });
+    it('it should return json data invalid', (done) => {
+      let tempObject = {
+        'user_id': 123,
+        'buy_product': [
+          {
+            'product_id': 1,
+            'amount': 3,
+            'remark': 'something',
+          },
+          {
+            'amount': 30,
+            'remark': 'something02',
+          },
+        ],
+      };
+      tempObject = JSON.stringify(tempObject);
+      chai.request(server)
+          .post('/sell')
+          .set('content-type', 'application/json')
+          .send(tempObject)
+          .end((err, res) => {
+            if (err!=null) {
+              console.log(err);
+            }
+            res.should.have.status(200);
+            res.body.success.should.equal(false);
+            // eslint-disable-next-line max-len
+            res.body.message.should.equal('json data buy_product.product_id invalid');
             done();
           });
     });
