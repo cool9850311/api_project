@@ -7,7 +7,7 @@ describe('crud api', () => {
   describe('read product table', ()=>{
     it('it should GET all product', (done) => {
       chai.request(server)
-          .get('/crud')
+          .get('/read')
           .end((err, res) => {
             if (err!=null) {
               console.log(err);
@@ -22,9 +22,9 @@ describe('crud api', () => {
   describe('create a product ', ()=>{
     it('it should create a product', (done) => {
       chai.request(server)
-          .post('/crud')
+          .post('/create')
           .set('content-type', 'application/x-www-form-urlencoded')
-          .send({method: 'create',
+          .send({
             product_name: '測試',
             price: 455,
             remark: 'Teat',
@@ -42,9 +42,9 @@ describe('crud api', () => {
   describe('update a product ', ()=>{
     it('it should update a product', (done) => {
       chai.request(server)
-          .post('/crud')
+          .post('/update')
           .set('content-type', 'application/x-www-form-urlencoded')
-          .send({method: 'update',
+          .send({
             product_name: '測試',
             price: 455,
             remark: 'Teat',
@@ -63,9 +63,9 @@ describe('crud api', () => {
   describe('delete a product ', ()=>{
     it('it should delete a product', (done) => {
       chai.request(server)
-          .post('/crud')
+          .post('/delete')
           .set('content-type', 'application/x-www-form-urlencoded')
-          .send({method: 'delete',
+          .send({
             product_name: '測試',
             price: 455,
             remark: 'Teat',

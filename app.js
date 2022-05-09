@@ -6,7 +6,10 @@ const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const crudRouter = require('./routes/crud');
+const readRouter = require('./routes/crud/read');
+const createRouter = require('./routes/crud/create');
+const updateRouter = require('./routes/crud/update');
+const deleteRouter = require('./routes/crud/delete');
 const restockRouter = require('./routes/restock');
 const sellRouter = require('./routes/sell');
 const searchOrderRouter = require('./routes/searchOrder');
@@ -42,7 +45,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/crud', crudRouter);
+app.use('/read', readRouter);
+app.use('/create', createRouter);
+app.use('/update', updateRouter);
+app.use('/delete', deleteRouter);
 app.use('/restock', restockRouter);
 app.use('/sell', sellRouter);
 app.use('/searchOrder', searchOrderRouter);
