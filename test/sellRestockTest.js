@@ -5,7 +5,7 @@ let server = 'http://localhost:3000';
 let should = chai.should();
 describe('Sell api', () => {
   describe('restock a product ', ()=>{
-    it('it should restock a product', (done) => {
+    it('it should restock a product and return success', (done) => {
       chai.request(server)
           .post('/restock')
           .set('content-type', 'application/x-www-form-urlencoded')
@@ -21,6 +21,26 @@ describe('Sell api', () => {
             }
             res.should.have.status(200);
             res.body.success.should.equal(true);
+            done();
+          });
+    });
+    it('it should  return amount invalid', (done) => {
+      chai.request(server)
+          .post('/restock')
+          .set('content-type', 'application/x-www-form-urlencoded')
+          .send({
+            user_id: '12',
+            product_id: 1,
+            amount: -1,
+            remark: 'Test',
+          })
+          .end((err, res) => {
+            if (err!=null) {
+              console.log(err);
+            }
+            res.should.have.status(200);
+            res.body.success.should.equal(false);
+            res.body.message.should.equal('amount invalid');
             done();
           });
     });
