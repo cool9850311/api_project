@@ -8,7 +8,7 @@ router.post('/', function(req, res) {
   const orderID = req.body.order_id;
   const updateOrder = req.body.buy_product;
   if (orderID==null) {
-    res.json({success: false, message: 'order_id invalid'});
+    res.json({success: false, message: 'missing order_id'});
     return;
   }
   if (updateOrder==null||updateOrder.length==0) {
