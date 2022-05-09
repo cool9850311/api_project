@@ -3,7 +3,7 @@
  * @returns { Promise<void> }
  */
 exports.up = function(knex) {
-  return knex.schema.createTable('restock_table', (table)=>{
+  return knex.schema.createTable('restock_table', (table) => {
     table.increments();
     table.integer('user_id');
     table.integer('product_id');

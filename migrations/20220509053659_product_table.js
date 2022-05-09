@@ -3,7 +3,7 @@
  * @returns { Promise<void> }
  */
 exports.up = function(knex) {
-  return knex.schema.createTable('product', (table)=>{
+  return knex.schema.createTable('product', (table) => {
     table.increments();
     table.string('product_name').unique();
     table.double('price');
