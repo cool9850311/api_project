@@ -20,7 +20,7 @@ describe('crud api', () => {
     });
   });
   describe('create a product ', ()=>{
-    it('it should create a product', (done) => {
+    it('it should create a product and return success', (done) => {
       chai.request(server)
           .post('/create')
           .set('content-type', 'application/x-www-form-urlencoded')
@@ -38,9 +38,27 @@ describe('crud api', () => {
             done();
           });
     });
+    it('it should return product_name invalid', (done) => {
+      chai.request(server)
+          .post('/create')
+          .set('content-type', 'application/x-www-form-urlencoded')
+          .send({
+            price: 455,
+            remark: 'Teat',
+          })
+          .end((err, res) => {
+            if (err!=null) {
+              console.log(err);
+            }
+            res.should.have.status(200);
+            res.body.success.should.equal(false);
+            res.body.message.should.equal('product_name invalid');
+            done();
+          });
+    });
   });
   describe('update a product ', ()=>{
-    it('it should update a product', (done) => {
+    it('it should update a product and return success', (done) => {
       chai.request(server)
           .post('/update')
           .set('content-type', 'application/x-www-form-urlencoded')
@@ -56,6 +74,25 @@ describe('crud api', () => {
             }
             res.should.have.status(200);
             res.body.success.should.equal(true);
+            done();
+          });
+    });
+    it('it should return missing any update value', (done) => {
+      chai.request(server)
+          .post('/update')
+          .set('content-type', 'application/x-www-form-urlencoded')
+          .send({
+            product_name: '測試',
+            price: 455,
+            remark: 'Teat',
+          })
+          .end((err, res) => {
+            if (err!=null) {
+              console.log(err);
+            }
+            res.should.have.status(200);
+            res.body.success.should.equal(false);
+            res.body.message.should.equal('missing any update value');
             done();
           });
     });

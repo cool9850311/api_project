@@ -1,11 +1,15 @@
 /* eslint-disable max-len */
 const express = require('express');
-const knex = require('knex')(require('./knexfile'));
+const knex = require('knex')(require('../knexfile'));
 // eslint-disable-next-line new-cap
 const router = express.Router();
 
 router.post('/', async function(req, res) {
   const orderID = req.body.order_id;
+  if (orderID == null) {
+    res.json({success: false, message: 'missing order_id'});
+    return;
+  }
   const queryString = knex.select('sub_order_table.id', 'order_id', 'product_id', 'price', 'amount', 'sub_order_table.remark')
       .from('sub_order_table')
       .where(function() {

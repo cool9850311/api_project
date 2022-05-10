@@ -1,5 +1,5 @@
 const express = require('express');
-const knex = require('knex')(require('../knexfile'));
+const knex = require('knex')(require('../../knexfile'));
 // eslint-disable-next-line new-cap
 const router = express.Router();
 
@@ -28,14 +28,14 @@ router.post('/', function(req, res) {
     queryString = queryString.where('price', price);
   }
   if (soldNum != null) {
-    if (isNaN(soldNum)||soldNum<0) {
+    if (isNaN(soldNum) || soldNum<0) {
       res.json({success: false, message: 'sold_num invalid'});
       return;
     }
     queryString = queryString.where('sold_num', soldNum);
   }
   if (stockNum != null) {
-    if (isNaN(stockNum)||stockNum<0) {
+    if (isNaN(stockNum) || stockNum<0) {
       res.json({success: false, message: 'stock_num invalid'});
       return;
     }
@@ -54,6 +54,15 @@ router.post('/', function(req, res) {
   }
   if (stockNumUpdate!=null&&isNaN(stockNumUpdate)||stockNumUpdate<0) {
     res.json({success: false, message: 'stock_num_update invalid'});
+    return;
+  }
+  // eslint-disable-next-line max-len
+  if (priceUpdate == null&&
+    productNameUpdate == null&&
+    soldNumUpdate == null&&
+    stockNumUpdate == null&&
+    remarkUpdate == null) {
+    res.json({success: false, message: 'missing any update value'});
     return;
   }
 
