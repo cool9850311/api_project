@@ -5,7 +5,7 @@
 exports.up = function(knex) {
   return knex.schema.createTable('user_table', (table) => {
     table.increments();
-    table.string('username').notNullable().unique();
+    table.string('user_name').notNullable().unique();
     table.string('email').notNullable().unique();
     table.string('password').notNullable();
     table.timestamp('create_time').defaultTo(knex.fn.now());
