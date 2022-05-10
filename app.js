@@ -14,6 +14,7 @@ const restockRouter = require('./routes/restock');
 const sellRouter = require('./routes/sell');
 const searchOrderRouter = require('./routes/searchOrder');
 const updateOrderRouter = require('./routes/updateOrder');
+const loginRouter = require('./routes/userLogin/login');
 const app = express();
 
 const swaggerUi = require('swagger-ui-express');
@@ -40,6 +41,7 @@ app.use('/restock', restockRouter);
 app.use('/sell', sellRouter);
 app.use('/searchOrder', searchOrderRouter);
 app.use('/updateOrder', updateOrderRouter);
+app.use('/login', loginRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
