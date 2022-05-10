@@ -21,8 +21,8 @@ router.post('/', function(req, res) {
     return;
   }
   let stockNum = 0;
-  knex.transaction(function(trx) {
-    knex
+  knex.transaction(async function(trx) {
+    let queryString = knex
         .transacting(trx)
         .insert({
           user_id: userID,
@@ -30,32 +30,29 @@ router.post('/', function(req, res) {
           amount: amount,
           remark: remark,
         })
-        .into('restock_table')
-        .then((result) => {
-          console.log(result);
-        });
-    knex
+        .into('restock_table');
+    await queryString;
+    queryString = knex
         .transacting(trx)
         .forUpdate()
         .select('stock_num')
         .from('product')
+        .where('id', productID);
+    await queryString;
+
+    try {
+      stockNum = result[0].stock_num;
+    } catch (error) {
+      console.log(error);
+    }
+    queryString = knex('product')
+        .transacting(trx)
         .where('id', productID)
+        .update('stock_num', (Number(stockNum)+Number(amount)))
         .then( (result)=>{
-          try {
-            stockNum = result[0].stock_num;
-          } catch (error) {
-            console.log(error);
-          }
-          // console.log(stockNum);
-          knex('product')
-              .transacting(trx)
-              .where('id', productID)
-              .update('stock_num', (Number(stockNum)+Number(amount)))
-              .then( (result)=>{
-                res.json({success: true, message: 'ok'});
-              });
-        }).then(trx.commit).catch(trx.rollback);
-    // console.log(stockNum);
+          res.json({success: true, message: 'ok'});
+        });
+    await queryString;
   });
 });
 
