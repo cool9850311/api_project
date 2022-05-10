@@ -41,7 +41,7 @@ router.post('/', function(req, res) {
     await queryString;
 
     try {
-      stockNum = result[0].stock_num;
+      stockNum = queryString[0].stock_num;
     } catch (error) {
       console.log(error);
     }
