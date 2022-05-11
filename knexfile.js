@@ -2,7 +2,7 @@ const knex = {
   client: 'mysql2',
   version: '8.0',
   connection: {
-    host: 'localhost',
+    host: 'mysqldb',
     port: 3306,
     user: 'newuser',
     password: 'password',

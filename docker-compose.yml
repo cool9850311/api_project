@@ -1,0 +1,27 @@
+version: '1.0'
+services:
+  mysqldb:
+    image: mysql/mysql-server:8.0
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=api_project_table
+      - MYSQL_USER=newuser
+      - MYSQL_PASSWORD=password
+    ports:
+      - 3306:3306
+    volumes:
+      - mysqlDB:/var/lib/mysql
+      - ./sqls:/docker-entrypoint-initdb.d
+  app:
+    depends_on:
+      - mysqldb
+    build: .
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    stdin_open: true
+    tty: true
+volumes: 
+  mysqlDB :
+    # external: true
