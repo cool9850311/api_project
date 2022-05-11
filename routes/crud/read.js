@@ -2,27 +2,10 @@ const express = require('express');
 const knex = require('knex')(require('../../knexfile'));
 // eslint-disable-next-line new-cap
 const router = express.Router();
-const jwt = require('jsonwebtoken');
-const jwtKey = 'my_secret_key';
-router.get('/', function(req, res, next) {
-  const token = req.cookies.token;
 
-  // if the cookie is not set, return an unauthorized error
-  if (!token) {
-    return res.status(401).end();
-  }
-  // let payload;
-  try {
-    // payload = jwt.verify(token, jwtKey);
-    jwt.verify(token, jwtKey);
-  } catch (e) {
-    if (e instanceof jwt.JsonWebTokenError) {
-      return res.status(401).end();
-    }
-    // otherwise, return a bad request error
-    return res.status(400).end();
-  }
-  // console.log(payload.userName);
+const auth = require('../auth/auth');
+
+router.get('/', auth, function(req, res, next) {
   let queryString = knex.select().from('product');
   if (req.query.id != null) {
     if (isNaN(req.query.id)||req.query.id<0) {
