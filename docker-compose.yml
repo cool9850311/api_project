@@ -12,15 +12,11 @@ services:
       - 3306:3306
     volumes:
       - mysqlDB:/var/lib/mysql
-<<<<<<< HEAD
-      - ./sqls:/docker-entrypoint-initdb.d
   redis:
     image: redis
     ports:
       - 6379:6379
     restart: unless-stopped
-=======
->>>>>>> 848598ebbf2e11c479f96671b8064a76446372c3
   app:
     depends_on:
       - mysqldb
