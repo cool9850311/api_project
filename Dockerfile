@@ -14,6 +14,8 @@ RUN npm install
 
 # Bundle app source
 COPY . .
-
+COPY docker_commands.sh ./
 EXPOSE 3000
-CMD [ "npm", "start" ]
+CMD ["sh","docker_commands.sh"]
+# CMD [ "npm", "start" ]
+# CMD ["npx", "knex", "migrate:latest", "&&", "npm", "start"]
