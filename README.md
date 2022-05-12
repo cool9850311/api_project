@@ -1,5 +1,5 @@
 # api_project
-## Build
+## Build & Run
 docker-compose up
 ## test
 ### method 1
