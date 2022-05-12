@@ -12,7 +12,7 @@ services:
       - 3306:3306
     volumes:
       - mysqlDB:/var/lib/mysql
-      - ./sqls:/docker-entrypoint-initdb.d
+      #- ./sqls:/docker-entrypoint-initdb.d
   app:
     depends_on:
       - mysqldb
